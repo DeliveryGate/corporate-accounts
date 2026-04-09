@@ -9,4 +9,4 @@ COPY prisma ./prisma
 RUN cd web && npx prisma generate --schema=../prisma/schema.prisma
 COPY . .
 EXPOSE 3000
-CMD cd web && npx prisma db push --schema=../prisma/schema.prisma --skip-generate && node index.js
+CMD cd web && node index.js
