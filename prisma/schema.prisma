@@ -1,0 +1,74 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Session {
+  id          String    @id
+  shop        String
+  state       String
+  isOnline    Boolean   @default(false)
+  scope       String?
+  expires     DateTime?
+  accessToken String
+  userId      BigInt?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model MerchantPlan {
+  id                   String   @id @default(cuid())
+  shop                 String   @unique
+  plan                 String   @default("free")
+  subscriptionId       String?
+  termsAndConditions   String   @default("") @db.Text
+  bankName             String   @default("")
+  bankAccountName      String   @default("")
+  bankAccountNumber    String   @default("")
+  bankSortCode         String   @default("")
+  bankIban             String   @default("")
+  welcomeEmailTemplate String   @default("") @db.Text
+  spendTierOptions     String   @default("[\"Under $1,000\",\"$1,000 - $5,000\",\"$5,000 - $15,000\",\"$15,000 - $35,000\",\"$35,000+\"]")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model CorporateApplication {
+  id                   String             @id @default(cuid())
+  shop                 String
+  companyName          String
+  contactName          String
+  email                String
+  phone                String
+  position             String             @default("")
+  estimatedMonthlySpend String            @default("")
+  deliveryAddress      String
+  billingAddress       String             @default("")
+  notes                String             @default("") @db.Text
+  termsAccepted        Boolean            @default(false)
+  status               String             @default("pending")
+  customDiscount       Float              @default(0)
+  customPricingNotes   String             @default("") @db.Text
+  shopifyCustomerId    String             @default("")
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  invoices             CorporateInvoice[]
+}
+
+model CorporateInvoice {
+  id            String               @id @default(cuid())
+  shop          String
+  applicationId String
+  month         String
+  orders        String               @default("[]") @db.Text
+  totalAmount   Float                @default(0)
+  status        String               @default("pending")
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  application   CorporateApplication @relation(fields: [applicationId], references: [id])
+}

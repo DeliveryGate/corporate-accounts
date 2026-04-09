@@ -1,0 +1,589 @@
+<style>
+.ca-corp {
+  --ca-primary: {{ section.settings.primary_color | default: '#1a6b3c' }};
+  --ca-primary-dark: {{ section.settings.primary_dark_color | default: '#124d2b' }};
+  --ca-cream: #f9f7f4;
+  --ca-text: #1a1a1a;
+  --ca-text-muted: #555;
+  --ca-radius: 16px;
+  --ca-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --ca-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero */
+.ca-corp__hero {
+  background: linear-gradient(135deg, #f0faf4 0%, #e6f4ec 50%, #f4faf6 100%);
+  padding: 50px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ca-corp__hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.ca-corp__hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+.ca-corp__pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.10); border-radius: 50px; padding: 10px 20px; font-size: 14px; font-weight: 600; color: var(--ca-text); margin-bottom: 20px; }
+.ca-corp__title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; color: var(--ca-text); margin: 0 0 16px; line-height: 1.15; }
+.ca-corp__title span { color: var(--ca-primary); }
+.ca-corp__subtitle { font-size: 18px; color: var(--ca-text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+.ca-corp__trust { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 30px; }
+.ca-corp__trust-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--ca-text); }
+.ca-corp__trust-icon { font-size: 18px; }
+
+/* Benefits cards */
+.ca-corp__cards-section { padding: 60px 20px 80px; background: #fff; }
+.ca-corp__cards-container { max-width: 1100px; margin: 0 auto; }
+.ca-corp__section-header { text-align: center; margin-bottom: 50px; }
+.ca-corp__section-title { font-size: 28px; font-weight: 700; color: var(--ca-text); margin: 0 0 12px; }
+.ca-corp__section-subtitle { font-size: 16px; color: var(--ca-text-muted); margin: 0; }
+.ca-corp__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.ca-corp__card { background: #fff; border-radius: var(--ca-radius); overflow: hidden; box-shadow: var(--ca-shadow); border: 1px solid rgba(0, 0, 0, 0.06); transition: all 0.3s ease; display: flex; flex-direction: column; }
+.ca-corp__card:hover { transform: translateY(-6px); box-shadow: var(--ca-shadow-hover); border-color: rgba(0,0,0,0.2); }
+.ca-corp__card-icon-header { height: 120px; display: flex; align-items: center; justify-content: center; }
+.ca-corp__card-icon-header--pricing  { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+.ca-corp__card-icon-header--invoice  { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+.ca-corp__card-icon-header--delivery { background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%); }
+.ca-corp__card-icon-header--service  { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); }
+.ca-corp__card-icon-emoji { font-size: 56px; transition: transform 0.3s ease; }
+.ca-corp__card:hover .ca-corp__card-icon-emoji { transform: scale(1.15) rotate(-5deg); }
+.ca-corp__card-content { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.ca-corp__card-title { font-size: 20px; font-weight: 700; color: var(--ca-text); margin: 0 0 10px; }
+.ca-corp__card-description { font-size: 14px; color: var(--ca-text-muted); line-height: 1.6; margin: 0; }
+
+/* Login CTA */
+.ca-corp__login-cta { background: linear-gradient(135deg, #f0faf4 0%, #e6f4ec 100%); padding: 50px 20px; text-align: center; }
+.ca-corp__login-content { max-width: 600px; margin: 0 auto; }
+.ca-corp__login-title { font-size: 24px; font-weight: 700; margin: 0 0 10px; color: var(--ca-text); }
+.ca-corp__login-text { font-size: 16px; color: var(--ca-text-muted); margin: 0 0 24px; line-height: 1.6; }
+.ca-corp__btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.2s ease; }
+.ca-corp__btn--primary { background: var(--ca-primary); color: #fff; }
+.ca-corp__btn--primary:hover { background: var(--ca-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); color: #fff; }
+.ca-corp__btn--white { background: #fff; color: var(--ca-primary-dark); }
+.ca-corp__btn--white:hover { background: #f0faf4; transform: translateY(-2px); }
+.ca-corp__btn--outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.4); }
+.ca-corp__btn--outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+/* Application form */
+.ca-corp__form-section { padding: 60px 20px 80px; background: #fff; }
+.ca-corp__form-container { max-width: 760px; margin: 0 auto; }
+.ca-corp__form-header { text-align: center; margin-bottom: 40px; }
+.ca-corp__form-wrap { background: #fff; border-radius: var(--ca-radius); padding: 32px; box-shadow: var(--ca-shadow); border: 1px solid rgba(0, 0, 0, 0.06); }
+.ca-corp__form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ca-corp__field { display: flex; flex-direction: column; gap: 5px; }
+.ca-corp__field--full { grid-column: 1 / -1; }
+.ca-corp__label { font-size: 13px; font-weight: 700; color: var(--ca-text); }
+.ca-corp__input, .ca-corp__select, .ca-corp__textarea {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px; padding: 12px 14px; font-size: 14px;
+  font-family: inherit; background: #fff; width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ca-corp__input:focus, .ca-corp__select:focus, .ca-corp__textarea:focus {
+  outline: none; border-color: var(--ca-primary);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+.ca-corp__textarea { resize: vertical; min-height: 80px; }
+.ca-corp__checkbox { display: flex; align-items: flex-start; gap: 10px; grid-column: 1 / -1; margin-top: 4px; }
+.ca-corp__checkbox input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--ca-primary); flex-shrink: 0; }
+.ca-corp__checkbox label { font-size: 13px; color: var(--ca-text-muted); line-height: 1.4; }
+.ca-corp__checkbox a { color: var(--ca-primary); font-weight: 700; text-decoration: none; }
+.ca-corp__submit-wrap { grid-column: 1 / -1; margin-top: 8px; }
+.ca-corp__submit {
+  width: 100%; background: var(--ca-primary); color: #fff; border: none;
+  border-radius: 50px; padding: 16px 28px; font-size: 16px; font-weight: 800;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.ca-corp__submit:hover { background: var(--ca-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.ca-corp__submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.ca-corp__note { grid-column: 1 / -1; font-size: 12px; color: rgba(0, 0, 0, 0.45); text-align: center; margin-top: 4px; }
+.ca-corp__success { text-align: center; padding: 40px 20px; }
+.ca-corp__success-icon { font-size: 48px; margin-bottom: 16px; }
+.ca-corp__success-title { font-size: 22px; font-weight: 850; margin: 0 0 8px; }
+.ca-corp__success-text { font-size: 15px; color: rgba(0,0,0,0.6); margin: 0; }
+.ca-corp__error { grid-column: 1 / -1; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #dc2626; display: none; }
+.ca-corp__error.visible { display: block; }
+
+/* Terms section */
+.ca-corp__terms-section { padding: 60px 20px 80px; background: linear-gradient(135deg, #f0faf4 0%, #e6f4ec 50%, #f4faf6 100%); }
+.ca-corp__terms-container { max-width: 760px; margin: 0 auto; }
+.ca-corp__terms-wrap { background: #fff; border-radius: var(--ca-radius); padding: 32px; box-shadow: var(--ca-shadow); border: 1px solid rgba(0, 0, 0, 0.06); }
+.ca-corp__terms-title { font-size: 22px; font-weight: 800; margin: 0 0 24px; color: var(--ca-text); }
+.ca-corp__terms-body { font-size: 14px; line-height: 1.7; color: var(--ca-text-muted); white-space: pre-wrap; }
+.ca-corp__terms-list { counter-reset: terms; list-style: none; padding: 0; margin: 0; }
+.ca-corp__terms-item { counter-increment: terms; font-size: 14px; line-height: 1.7; color: var(--ca-text-muted); padding-left: 36px; position: relative; margin-bottom: 16px; }
+.ca-corp__terms-item::before { content: counter(terms) "."; position: absolute; left: 0; font-weight: 800; color: var(--ca-primary); font-size: 15px; }
+
+/* Bank details */
+.ca-corp__bank { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.10); border-radius: 12px; padding: 16px 18px; margin-top: 24px; font-size: 14px; line-height: 1.7; }
+.ca-corp__bank strong { display: block; margin-bottom: 6px; font-size: 15px; color: var(--ca-text); }
+
+/* Bottom CTA */
+.ca-corp__bottom-cta { background: linear-gradient(135deg, var(--ca-primary) 0%, var(--ca-primary-dark) 100%); padding: 60px 20px; text-align: center; color: #fff; }
+.ca-corp__bottom-content { max-width: 700px; margin: 0 auto; }
+.ca-corp__bottom-title { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+.ca-corp__bottom-text { font-size: 16px; opacity: 0.9; margin: 0 0 28px; line-height: 1.6; }
+.ca-corp__bottom-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ca-corp__grid { grid-template-columns: 1fr; }
+  .ca-corp__form { grid-template-columns: 1fr; }
+  .ca-corp__hero { padding: 40px 16px 50px; }
+  .ca-corp__trust { flex-direction: column; gap: 12px; }
+  .ca-corp__cards-section { padding: 40px 16px 60px; }
+  .ca-corp__form-section { padding: 40px 16px 60px; }
+  .ca-corp__terms-section { padding: 40px 16px 60px; }
+  .ca-corp__form-wrap { padding: 20px; }
+  .ca-corp__terms-wrap { padding: 20px; }
+}
+</style>
+
+<div class="ca-corp">
+
+  {%- comment -%} ── 1. HERO ─────────────────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__hero">
+    <div class="ca-corp__hero-content">
+      <div class="ca-corp__pill">
+        <span>🤝</span>
+        <span>{{ section.settings.pill_text | default: 'Preferred Partner Programme' }}</span>
+      </div>
+      <h1 class="ca-corp__title">
+        {{ section.settings.hero_title | default: 'Corporate' }}
+        <span>{{ section.settings.hero_title_highlight | default: 'Accounts' }}</span>
+      </h1>
+      <p class="ca-corp__subtitle">
+        {{ section.settings.hero_subtitle | default: 'Tailored pricing, consolidated monthly billing, and a dedicated service for businesses ordering regularly.' }}
+      </p>
+      <div class="ca-corp__trust">
+        <div class="ca-corp__trust-item"><span class="ca-corp__trust-icon">💰</span><span>Bespoke Pricing</span></div>
+        <div class="ca-corp__trust-item"><span class="ca-corp__trust-icon">📄</span><span>Monthly Invoicing</span></div>
+        <div class="ca-corp__trust-item"><span class="ca-corp__trust-icon">🚚</span><span>Priority Service</span></div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ── 2. LOGIN CTA ─────────────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__login-cta">
+    <div class="ca-corp__login-content">
+      <h2 class="ca-corp__login-title">Already have a corporate account?</h2>
+      <p class="ca-corp__login-text">Log in to access your preferred pricing and place orders.</p>
+      <a href="/account/login" class="ca-corp__btn ca-corp__btn--primary">Log in to your account →</a>
+    </div>
+  </section>
+
+  {%- comment -%} ── 3. APPLICATION FORM ──────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__form-section">
+    <div class="ca-corp__form-container">
+      <div class="ca-corp__form-header">
+        <h2 class="ca-corp__section-title">Open a Corporate Account</h2>
+        <p class="ca-corp__section-subtitle">Complete the form below and we'll be in touch within one working day to discuss your tailored pricing.</p>
+      </div>
+      <div class="ca-corp__form-wrap" id="ca-form-wrap">
+        <form class="ca-corp__form" id="ca-application-form" novalidate>
+          <input type="hidden" name="shop" value="{{ shop.permanent_domain }}">
+
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-company">Company name *</label>
+            <input class="ca-corp__input" type="text" id="ca-company" name="companyName" required>
+          </div>
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-contact">Contact name *</label>
+            <input class="ca-corp__input" type="text" id="ca-contact" name="contactName" required>
+          </div>
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-email">Email address *</label>
+            <input class="ca-corp__input" type="email" id="ca-email" name="email" required>
+          </div>
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-phone">Phone number *</label>
+            <input class="ca-corp__input" type="tel" id="ca-phone" name="phone" required>
+          </div>
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-position">Your position</label>
+            <input class="ca-corp__input" type="text" id="ca-position" name="position" placeholder="e.g. Office Manager, PA, Facilities">
+          </div>
+          <div class="ca-corp__field">
+            <label class="ca-corp__label" for="ca-spend">Estimated monthly spend</label>
+            <select class="ca-corp__select" id="ca-spend" name="estimatedMonthlySpend">
+              <option value="">Select a range</option>
+              {%- assign spend_tiers = section.settings.spend_tiers | default: 'Under $1,000|$1,000 - $5,000|$5,000 - $15,000|$15,000 - $35,000|$35,000+' -%}
+              {%- assign tier_array = spend_tiers | split: '|' -%}
+              {%- for tier in tier_array -%}
+                <option value="{{ tier }}">{{ tier }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <div class="ca-corp__field ca-corp__field--full">
+            <label class="ca-corp__label" for="ca-delivery">Delivery address *</label>
+            <input class="ca-corp__input" type="text" id="ca-delivery" name="deliveryAddress" required placeholder="Building, street, postcode">
+          </div>
+          <div class="ca-corp__field ca-corp__field--full">
+            <label class="ca-corp__label" for="ca-billing">Billing address <span style="font-weight:400;color:#888">(if different)</span></label>
+            <input class="ca-corp__input" type="text" id="ca-billing" name="billingAddress" placeholder="Leave blank if same as delivery">
+          </div>
+          <div class="ca-corp__field ca-corp__field--full">
+            <label class="ca-corp__label" for="ca-notes">Anything else we should know?</label>
+            <textarea class="ca-corp__textarea" id="ca-notes" name="notes" placeholder="e.g. Typical order types, requirements, preferred delivery days"></textarea>
+          </div>
+          <div class="ca-corp__checkbox">
+            <input type="checkbox" id="ca-terms" name="termsAccepted" required>
+            <label for="ca-terms">I have read and agree to the <a href="#ca-corp-terms">Terms and Conditions of Supply</a> *</label>
+          </div>
+          <div class="ca-corp__error" id="ca-error">Please fill in all required fields and accept the terms.</div>
+          <div class="ca-corp__submit-wrap">
+            <button type="submit" class="ca-corp__submit" id="ca-submit">Submit Application</button>
+          </div>
+          <p class="ca-corp__note">{{ section.settings.form_note | default: 'Your first order must be paid by card before a credit account is activated.' }}</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ── 4. BENEFITS CARDS ────────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__cards-section">
+    <div class="ca-corp__cards-container">
+      <div class="ca-corp__section-header">
+        <h2 class="ca-corp__section-title">{{ section.settings.benefits_title | default: 'Why Open an Account?' }}</h2>
+        <p class="ca-corp__section-subtitle">{{ section.settings.benefits_subtitle | default: 'Everything you need — without the hassle' }}</p>
+      </div>
+      <div class="ca-corp__grid">
+        <div class="ca-corp__card">
+          <div class="ca-corp__card-icon-header ca-corp__card-icon-header--pricing"><span class="ca-corp__card-icon-emoji">💰</span></div>
+          <div class="ca-corp__card-content">
+            <h3 class="ca-corp__card-title">Tailored Pricing</h3>
+            <p class="ca-corp__card-description">Bespoke discount rates based on your monthly requirements. The more you consolidate, the more you save.</p>
+          </div>
+        </div>
+        <div class="ca-corp__card">
+          <div class="ca-corp__card-icon-header ca-corp__card-icon-header--invoice"><span class="ca-corp__card-icon-emoji">📄</span></div>
+          <div class="ca-corp__card-content">
+            <h3 class="ca-corp__card-title">Monthly Invoicing</h3>
+            <p class="ca-corp__card-description">One consolidated invoice per month. No chasing individual receipts — simple, clean accounting for your finance team.</p>
+          </div>
+        </div>
+        <div class="ca-corp__card">
+          <div class="ca-corp__card-icon-header ca-corp__card-icon-header--delivery"><span class="ca-corp__card-icon-emoji">🚚</span></div>
+          <div class="ca-corp__card-content">
+            <h3 class="ca-corp__card-title">Priority Delivery</h3>
+            <p class="ca-corp__card-description">Preferred delivery slots and dedicated service. Your orders are prioritised every time.</p>
+          </div>
+        </div>
+        <div class="ca-corp__card">
+          <div class="ca-corp__card-icon-header ca-corp__card-icon-header--service"><span class="ca-corp__card-icon-emoji">🛡️</span></div>
+          <div class="ca-corp__card-content">
+            <h3 class="ca-corp__card-title">Dedicated Support</h3>
+            <p class="ca-corp__card-description">A direct point of contact for your account. Fast responses and a team that knows your business.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ── 5. T&Cs SECTION ──────────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__terms-section" id="ca-corp-terms">
+    <div class="ca-corp__terms-container">
+      <div class="ca-corp__terms-wrap">
+        <h2 class="ca-corp__terms-title">Terms and Conditions of Supply</h2>
+        {%- if section.settings.terms_text != blank -%}
+          <div class="ca-corp__terms-body">{{ section.settings.terms_text }}</div>
+        {%- else -%}
+          <ol class="ca-corp__terms-list">
+            <li class="ca-corp__terms-item">{{ shop.name }} will supply, on request, its products to corporate account holders and registered customers.</li>
+            <li class="ca-corp__terms-item">Delivery will only be made to sites expressly agreed in advance. Delivery shall be free of charge only where minimum order requirements have been met, or where a waiver has been agreed in writing.</li>
+            <li class="ca-corp__terms-item">{{ shop.name }} undertakes to make deliveries within the agreed time slot, subject to orders being received before the agreed cut-off time on the preceding working day.</li>
+            <li class="ca-corp__terms-item">All orders should be placed via the website unless otherwise agreed. Orders placed by any other means may not be accepted.</li>
+            <li class="ca-corp__terms-item">In the event that any products are considered unacceptable, {{ shop.name }} undertakes to replace or refund them, provided the customer informs us within 1 hour of delivery.</li>
+            <li class="ca-corp__terms-item">Payment terms for corporate accounts are monthly, due at the end of each calendar month. {{ shop.name }} reserves the right to suspend deliveries until an outstanding balance is settled in full.</li>
+            <li class="ca-corp__terms-item">{{ shop.name }} reserves the right to review pricing at any time in the event of substantive changes in costs. Account holders will be given reasonable notice of any pricing adjustments.</li>
+          </ol>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ── 6. BANK DETAILS SECTION ──────────────────────────────── {%- endcomment -%}
+  {%- if section.settings.bank_account_name != blank -%}
+  <section class="ca-corp__terms-section" style="padding-top: 0;">
+    <div class="ca-corp__terms-container">
+      <div class="ca-corp__terms-wrap">
+        <div class="ca-corp__bank">
+          <strong>Bank Details for BACS Payments</strong>
+          {%- if section.settings.bank_name != blank -%}Bank: {{ section.settings.bank_name }}<br>{%- endif -%}
+          Account name: {{ section.settings.bank_account_name }}<br>
+          {%- if section.settings.bank_account_number != blank -%}Account number: {{ section.settings.bank_account_number }}<br>{%- endif -%}
+          {%- if section.settings.bank_sort_code != blank -%}Sort code: {{ section.settings.bank_sort_code }}<br>{%- endif -%}
+          {%- if section.settings.bank_iban != blank -%}IBAN: {{ section.settings.bank_iban }}{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+
+  {%- comment -%} ── 7. BOTTOM CTA ────────────────────────────────────────── {%- endcomment -%}
+  <section class="ca-corp__bottom-cta">
+    <div class="ca-corp__bottom-content">
+      <h2 class="ca-corp__bottom-title">{{ section.settings.cta_title | default: 'Ready to Get Started?' }}</h2>
+      <p class="ca-corp__bottom-text">{{ section.settings.cta_text | default: "Apply above or get in touch — we'll set up your account and have you ordering within 24 hours." }}</p>
+      <div class="ca-corp__bottom-buttons">
+        {%- if section.settings.cta_primary_url != blank -%}
+          <a href="{{ section.settings.cta_primary_url }}" class="ca-corp__btn ca-corp__btn--white">{{ section.settings.cta_primary_label | default: 'Browse Products' }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta_secondary_url != blank -%}
+          <a href="{{ section.settings.cta_secondary_url }}" class="ca-corp__btn ca-corp__btn--outline">{{ section.settings.cta_secondary_label | default: 'Get in Touch' }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('ca-application-form');
+  var wrap = document.getElementById('ca-form-wrap');
+  var errorEl = document.getElementById('ca-error');
+  var submitBtn = document.getElementById('ca-submit');
+  if (!form) return;
+
+  // Restore success state if query string present (fallback)
+  if (window.location.search.indexOf('ca_submitted=1') > -1) {
+    showSuccess();
+    return;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.classList.remove('visible');
+
+    var required = form.querySelectorAll('[required]');
+    var valid = true;
+    required.forEach(function (el) {
+      if (el.type === 'checkbox' && !el.checked) valid = false;
+      else if (el.type !== 'checkbox' && !el.value.trim()) valid = false;
+    });
+
+    if (!valid) {
+      errorEl.classList.add('visible');
+      errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    var data = {};
+    var elements = form.elements;
+    for (var i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      if (!el.name) continue;
+      if (el.type === 'checkbox') data[el.name] = el.checked;
+      else data[el.name] = el.value;
+    }
+
+    fetch('/apps/corporate-accounts/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        if (result.success) {
+          showSuccess();
+        } else {
+          errorEl.textContent = result.error || 'Something went wrong. Please try again.';
+          errorEl.classList.add('visible');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Application';
+        }
+      })
+      .catch(function () {
+        errorEl.textContent = 'Network error. Please check your connection and try again.';
+        errorEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Application';
+      });
+  });
+
+  function showSuccess() {
+    wrap.innerHTML =
+      '<div class="ca-corp__success">' +
+      '<div class="ca-corp__success-icon">✅</div>' +
+      '<h2 class="ca-corp__success-title">Application Received</h2>' +
+      '<p class="ca-corp__success-text">Thank you! We\'ll review your application and be in touch within one working day to discuss your tailored pricing.</p>' +
+      '</div>';
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Corporate Accounts",
+  "target": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "pill_text",
+      "label": "Pill label",
+      "default": "Preferred Partner Programme"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title (plain)",
+      "default": "Corporate"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_highlight",
+      "label": "Hero title (highlighted word)",
+      "default": "Accounts"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Tailored pricing, consolidated monthly billing, and a dedicated service for businesses ordering regularly."
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary colour",
+      "default": "#1a6b3c"
+    },
+    {
+      "type": "color",
+      "id": "primary_dark_color",
+      "label": "Primary dark colour",
+      "default": "#124d2b"
+    },
+    {
+      "type": "header",
+      "content": "Benefits section"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Benefits section title",
+      "default": "Why Open an Account?"
+    },
+    {
+      "type": "text",
+      "id": "benefits_subtitle",
+      "label": "Benefits section subtitle",
+      "default": "Everything you need — without the hassle"
+    },
+    {
+      "type": "header",
+      "content": "Application form"
+    },
+    {
+      "type": "text",
+      "id": "spend_tiers",
+      "label": "Spend tier options (pipe-separated)",
+      "default": "Under $1,000|$1,000 - $5,000|$5,000 - $15,000|$15,000 - $35,000|$35,000+",
+      "info": "Separate options with | e.g. Under $1,000|$1,000 - $5,000"
+    },
+    {
+      "type": "text",
+      "id": "form_note",
+      "label": "Form footnote",
+      "default": "Your first order must be paid by card before a credit account is activated."
+    },
+    {
+      "type": "header",
+      "content": "Terms & Conditions"
+    },
+    {
+      "type": "textarea",
+      "id": "terms_text",
+      "label": "Terms and conditions (leave blank for default)",
+      "info": "Plain text or HTML. Leave blank to use the built-in default terms."
+    },
+    {
+      "type": "header",
+      "content": "Bank details (BACS)"
+    },
+    {
+      "type": "text",
+      "id": "bank_name",
+      "label": "Bank name"
+    },
+    {
+      "type": "text",
+      "id": "bank_account_name",
+      "label": "Account name",
+      "info": "Leave blank to hide bank details section"
+    },
+    {
+      "type": "text",
+      "id": "bank_account_number",
+      "label": "Account number"
+    },
+    {
+      "type": "text",
+      "id": "bank_sort_code",
+      "label": "Sort code"
+    },
+    {
+      "type": "text",
+      "id": "bank_iban",
+      "label": "IBAN (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Bottom CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA heading",
+      "default": "Ready to Get Started?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA body text",
+      "default": "Apply above or get in touch — we'll set up your account and have you ordering within 24 hours."
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary button label",
+      "default": "Browse Products"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary button label",
+      "default": "Get in Touch"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Corporate Accounts"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+api_version = "2026-07"
+
+[[extensions]]
+type = "theme"
+name = "Corporate Accounts"
+handle = "corporate-accounts"
+
+[[extensions.targeting]]
+target = "section"
