@@ -3,16 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Corporate Accounts — B2B Portal for Shopify",
+  "description": "Corporate Accounts \u2014 B2B Portal for Shopify",
   "scripts": {
     "start": "cd web && node index.js",
     "dev": "shopify app dev",
     "deploy": "shopify app deploy"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.4.5",
+    "prisma": "^5.22.0"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "devDependencies": {}
 }
