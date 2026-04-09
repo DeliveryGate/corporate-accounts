@@ -4,9 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --production
 COPY web/package*.json ./web/
-RUN cd web && npm install --production
 COPY prisma ./prisma
-RUN cd web && npx prisma generate --schema=../prisma/schema.prisma
 COPY . .
+RUN cd web && rm -rf node_modules && npm install --production && ./node_modules/.bin/prisma generate --schema=../prisma/schema.prisma
 EXPOSE 3000
 CMD cd web && node index.js
